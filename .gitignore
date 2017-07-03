@@ -1,0 +1,6 @@
+.hg/
+
+*~
+*.orig
+
+node_modules/
