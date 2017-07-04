@@ -1,0 +1,36 @@
+{
+  "name": "restline",
+  "version": "0.0.1-dev",
+  "description": "RESTline> make RESTful Vorpal commands",
+  "main": "restline.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zimmermanncode/restline"
+  },
+  "keywords": [
+    "restline",
+    "rest",
+    "vorpal",
+    "pal",
+    "commands",
+    "command",
+    "cli",
+    "commandline",
+    "cmdline",
+    "superagent",
+    "request"
+  ],
+  "author": "Stefan Zimmermann <user@zimmermann.co>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zimmermanncode/restline/issues"
+  },
+  "homepage": "https://github.com/zimmermanncode/restline",
+  "dependencies": {
+    "vorpal": ">=1.12.0",
+    "superagent": ">=3.5.2"
+  }
+}
