@@ -29,8 +29,8 @@ RESTline.command("npm vorpal",
     .GET("v2/package/vorpal");
 ```
 
-`RESTline.command(...).GET` will automatically create a
-[`vorpal.command(...)](
+`RESTline.command(...).GET(path [, query [, status]])` will automatically
+create a [vorpal.command(...)](
   https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command)
 and a [vorpal.command(...).action(function ...)](
   https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#commandactionfunction).
