@@ -58,7 +58,7 @@ $ npm vorpal
 
 Now we want a command that takes a package name as parameter. For that purpose
 you can also pass a `handler` function to `RESTline.command(...).GET`, which
-is called with the vorpal command `args` and and internal RESTline
+is called with the vorpal command `args` and an internal RESTline
 `GET(path [, query [, status]])` function, which does the actual REST request:
 
 ```javascript
@@ -126,7 +126,7 @@ $ npm package non-existent
 Error: Not Found (404)
 ```
 
-You can accept that standard error output or define custom status handlers.
+You can accept that standard error output or define custom `status` handlers.
 Let's define a verbose `npm package -v` variant:
 
 ```javascript
@@ -143,9 +143,9 @@ $ npm package -v non-existent
 Oops! Package not found!
 ```
 
-Instead of a simple string also a custom status handler function can be used,
-producing even more verbose output, whereby the status handler gets called
-with the `this` of `vorpal.command("...").action(function ...)`:
+Instead of a simple string also a custom `status` handler function can be
+used, producing even more verbose output, whereby the status handler gets
+called with `this` of `vorpal.command("...").action(function ...)`:
 
 ```javascript
 RESTline.command("npm package -vv <name>")
