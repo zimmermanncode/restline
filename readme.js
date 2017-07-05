@@ -20,20 +20,29 @@ RESTline.command("npm search <name>")
         GET("v2/search", {q: args.name});
     });
 
-RESTline.command("npm package -v <name>")
+vorpal.find('npm package').remove();
+
+RESTline.command("npm package <name>")
+    .option('-v, --verbose', "Be verbose on errors")
     .GET(function (args, GET) {
-        GET("v2/package/" + args.name, null, {
+        GET("v2/package/" + args.name, null, args.options.verbose ? {
             404: "Oops! Package not found!"
-        });
+        } : null);
     });
 
-RESTline.command("npm package -vv <name>")
+vorpal.find('npm package').remove();
+
+RESTline.command("npm package <name>")
+    .option('-v, --verbose', "Be verbose on errors")
+    .option('-V, --very-verbose', "Be even more verbose on errors")
     .GET(function (args, GET) {
-        GET("v2/package/" + args.name, null, {
+        GET("v2/package/" + args.name, null, args.options['very-verbose'] ? {
             404: function (args, result) {
                 this.log("Oops! " + result.status +
                          "! Seems like package '" + args.name +
                          "' was not found!")
             }
-        });
+        } : args.options.verbose ? {
+            404: "Oops! Package not found!"
+        } : null);
     });

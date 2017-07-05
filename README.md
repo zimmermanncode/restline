@@ -127,14 +127,17 @@ Error: Not Found (404)
 ```
 
 You can accept that standard error output or define custom `status` handlers.
-Let's define a verbose `npm package -v` variant:
+Let's redefine `npm package` with a verbose flag:
 
 ```javascript
-RESTline.command("npm package -v <name>")
+vorpal.find('npm package').remove();
+
+RESTline.command("npm package <name>")
+    .option('-v, --verbose', "Be verbose on errors")
     .GET(function (args, GET) {
-        GET("v2/package/" + args.name, null, {
+        GET("v2/package/" + args.name, null, args.options.verbose ? {
             404: "Oops! Package not found!"
-        });
+        } : null);
     });
 ```
 
@@ -145,22 +148,30 @@ Oops! Package not found!
 
 Instead of a simple string also a custom `status` handler function can be
 used, producing even more verbose output, whereby the status handler gets
-called with `this` of `vorpal.command("...").action(function ...)`:
+called with `this` of `vorpal.command("...").action(function ...)` and `args`
+and the [superagent](https://www.npmjs.com/package/superagent) REST `result`
+as arguments:
 
 ```javascript
-RESTline.command("npm package -vv <name>")
+vorpal.find('npm package').remove();
+
+RESTline.command("npm package <name>")
+    .option('-v, --verbose', "Be verbose on errors")
+    .option('-V, --very-verbose', "Be even more verbose on errors")
     .GET(function (args, GET) {
-        GET("v2/package/" + args.name, null, {
+        GET("v2/package/" + args.name, null, args.options['very-verbose'] ? {
             404: function (args, result) {
                 this.log("Oops! " + result.status +
                          "! Seems like package '" + args.name +
                          "' was not found!")
             }
+        } : args.options.verbose ? {
+            404: "Oops! Package not found!"
         });
     });
 ```
 
 ```
-$ npm package -vv non-existent
+$ npm package -V non-existent
 Oops! 404! Seems like package 'non-existent' was not found!
 ```
