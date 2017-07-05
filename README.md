@@ -107,3 +107,48 @@ $ npm search vorpal
   ]
 }
 ```
+
+The REST response status is not always fine:
+
+```
+$ npm package non-existent
+Error: Not Found (404)
+```
+
+You can accept that standard error output or define custom status handlers.
+Let's define a verbose `npm package -v` variant:
+
+```javascript
+RESTline.command("npm package -v <name>")
+    .GET(function (args, GET) {
+        GET("v2/package/" + args.name, null, {
+            404: "Oops! Package not found!"
+        });
+    });
+```
+
+```
+$ npm package -v non-existent
+Oops! Package not found!
+```
+
+Instead of a simple string also a custom status handler function can be used,
+producing even more verbose output:
+
+```javascript
+RESTline.command("npm package -vv <name>")
+    .GET(function (args, GET) {
+        GET("v2/package/" + args.name, null, {
+            404: function (args, result) {
+                this.log("Oops! " + result.status +
+                         "! Seems like package '" + args.name +
+                         "' was not found!")
+            }
+        });
+    });
+```
+
+```
+$ npm package -vv non-existent
+Oops! 404! Seems like package 'non-existent' was not found!
+```
