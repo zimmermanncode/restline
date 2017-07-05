@@ -33,8 +33,8 @@ RESTline.command("npm vorpal",
 [`vorpal.command(...)](
   https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command)
 and a [vorpal.command(...).action(function ...)](
-  https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#commandactionfunction)
-Calling this command will send a GET request via
+  https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#commandactionfunction).
+Calling the command will send a GET request via
 [superagent](https://www.npmjs.com/package/superagent) to
 http://api.npms.io/v2/package/vorpal and print the JSON response:
 
