@@ -8,18 +8,18 @@ var vorpal = require('vorpal')(),
 vorpal.show();
 ```
 
-In parallel to [vorpal.command(...)](
+In parallel to [vorpal.command("...")](
   https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command) you can now
 easily create commands that do REST operations in the background via
-`RESTline.command(...)`. But first, `RESTline` needs a host to send REST
+`RESTline.command("...")`. But first, `RESTline` needs a host to send REST
 requests to:
 
 ```javascript
 RESTline.host('api.npms.io');
 ```
 
-You can also set `RESTline.port(...)`, and `RESTline.user(...)` and
-`RESTline.password(...)` for authentication.
+You can also set `RESTline.port(number)`, and `RESTline.user('...')` and
+`RESTline.password('...')` for authentication.
 
 Let's create some commands to work with the http://api.npms.io API:
 
@@ -29,9 +29,10 @@ RESTline.command("npm vorpal",
     .GET("v2/package/vorpal");
 ```
 
-Calling this command will send a GET request via
-[superagent](https://www.npmjs.com/package/superagent) to
-http://api.npms.io/v2/package/vorpal and print the JSON response
+`RESTline.command("...").GET` will automatically create a
+`vorpal.command("...").action(function ...)`. Calling this command will send a
+GET request via [superagent](https://www.npmjs.com/package/superagent) to
+http://api.npms.io/v2/package/vorpal and print the JSON response:
 
 ```
 $ npm vorpal
@@ -133,7 +134,8 @@ Oops! Package not found!
 ```
 
 Instead of a simple string also a custom status handler function can be used,
-producing even more verbose output:
+producing even more verbose output, whereby the status handler gets called
+with the `this` of `vorpal.command("...").action(function ...)`:
 
 ```javascript
 RESTline.command("npm package -vv <name>")
