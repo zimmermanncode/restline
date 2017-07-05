@@ -29,13 +29,13 @@ RESTline.command("npm vorpal",
     .GET("v2/package/vorpal");
 ```
 
-`RESTline.command(...).GET(path [, query [, status]])` will automatically
+`RESTline.command(...).GET(handler [, query [, status]])` will automatically
 create a [vorpal.command(...)](
   https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command)
 and a [vorpal.command(...).action(function ...)](
   https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#commandactionfunction).
-Calling the command will send a GET request via
-[superagent](https://www.npmjs.com/package/superagent) to
+Since the `handler` is just a `string`, calling the command will send a GET
+request via [superagent](https://www.npmjs.com/package/superagent) to
 http://api.npms.io/v2/package/vorpal and print the JSON response:
 
 ```
@@ -57,9 +57,9 @@ $ npm vorpal
 ```
 
 Now we want a command that takes a package name as parameter. For that purpose
-you can also pass a function to `RESTline.command(...).GET`, which is called
-with the vorpal command `args` and and internal RESTline `GET` function, which
-does the actual REST request:
+you can also pass a `handler` function to `RESTline.command(...).GET`, which
+is called with the vorpal command `args` and and internal RESTline
+`GET(path [, query [, status]])` function, which does the actual REST request:
 
 ```javascript
 RESTline.command("npm package <name>",
@@ -95,6 +95,9 @@ RESTline.command("npm search <name>")
         GET("v2/search", {q: args.name});
     });
 ```
+
+Calling the command with `vorpal` as `<name>` argument will send a GET request
+to `http://api.npms.io/v2/search?q=vorpal`:
 
 ```
 $ npm search vorpal
