@@ -87,7 +87,7 @@ $ npm package superagent
 }
 ```
 
-You might need query variables at the end of your URL:
+You might need `query` variables at the end of your URL:
 
 ```javascript
 RESTline.command("npm search <name>")
