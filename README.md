@@ -88,6 +88,7 @@ RESTline.command("npm search <name>")
     });
 ```
 
+```
 $ npm search vorpal
 {
   "total": 56,
