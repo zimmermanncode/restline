@@ -78,3 +78,31 @@ $ npm package superagent
   ...
 }
 ```
+
+You might need query variables at the end of your URL:
+
+```javascript
+RESTline.command("npm search <name>")
+    .GET(function (args, GET) {
+        GET("v2/search", {q: args.name});
+    });
+```
+
+$ npm search vorpal
+{
+  "total": 56,
+  "results": [
+    {
+      "package": {
+        "name": "vorpal",
+        "scope": "unscoped",
+        "version": "1.12.0",
+        "description": "Node's first framework for building immersive CLI apps.",
+        ...
+      },
+    ...
+    },
+  ...
+  ]
+}
+```
