@@ -37,12 +37,17 @@ RESTline.command("npm vorpal",
 
 `RESTline.command(...).GET(handler [, query [, status]])` will automatically
 create a [vorpal.command(...)](
-  https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command)
+  https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#vorpalcommandcommand-description)
 and a [vorpal.command(...).action(function ...)](
-  https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#commandactionfunction).
-Since the `handler` is just a `string`, calling the command will send a GET
-request via [superagent](https://www.npmjs.com/package/superagent) to
-https://api.npms.io/v2/package/vorpal and print the JSON response:
+  https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#commandactionfunction),
+and returns the `vorpal.command(...)` instance, so you can further chain it
+with every other Vorpal [Command](
+  https://github.com/dthree/vorpal/wiki/api-%7C-vorpal.command#api) method.
+
+Since the `handler` is just a `string`in the above case, calling the command
+will send a GET request via [superagent](
+  https://www.npmjs.com/package/superagent)
+to https://api.npms.io/v2/package/vorpal and print the JSON response:
 
 ```
 $ npm vorpal
@@ -65,7 +70,7 @@ $ npm vorpal
 Now we want a command that takes a package name as parameter. For that purpose
 you can also pass a `handler` function to `RESTline.command(...).GET`, which
 is called with `this` of `vorpal.command("...").action(function ...)`, and the
-vorpal command `args` and an internal RESTline
+Vorpal command `args` and an internal RESTline
 `GET(path [, query [, status]])` function, which does the actual REST request:
 
 ```javascript
@@ -175,7 +180,7 @@ Enough of `.GET`! Let's do a
 It takes an additional `data` argument between `query` and `status`, which
 defines the POST data to be sent. If `handler` is a function, it will also be
 called with `this` of `vorpal.command("...").action(function ...)`, and the
-vorpal command `args` and in this case an internal `POST` function that takes
+Vorpal command `args` and in this case an internal `POST` function that takes
 the same arguments as `RESTline.command(...).POST`:
 
 ```javascript
