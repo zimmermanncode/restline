@@ -1,8 +1,8 @@
 # RESTline> make RESTful Vorpal commands
 
-[![https://img.shields.io/npm/v/restline.svg]](
+[![](https://img.shields.io/npm/v/restline.svg)](
   https://www.npmjs.com/package/restline)
-[![https://img.shields.io/npm/dt/restline.svg]](
+[![](https://img.shields.io/npm/dt/restline.svg)](
   https://www.npmjs.com/package/restline)
 
 ```javascript
